@@ -95,7 +95,7 @@ class _EventLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 4, bottom: 3),
-      height: 14,
+      height: 12,
       width: double.infinity,
       color: event.eventBackgroundColor,
       child: Padding(
@@ -105,7 +105,7 @@ class _EventLabel extends StatelessWidget {
             event.eventName,
             style: event.eventTextStyle,
             textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
+          
           ),
         ),
       ),
