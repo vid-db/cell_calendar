@@ -25,13 +25,10 @@ class EventLabels extends HookConsumerWidget {
   final DateTime date;
   final List<CalendarEvent> events;
 
-  List<CalendarEvent> _eventsOnTheDay(
-      DateTime date, List<CalendarEvent> events) {
+  List<CalendarEvent> _eventsOnTheDay(DateTime date, List<CalendarEvent> events) {
     final res = events
         .where((event) =>
-            event.eventDate.year == date.year &&
-            event.eventDate.month == date.month &&
-            event.eventDate.day == date.day)
+            event.eventDate.year == date.year && event.eventDate.month == date.month && event.eventDate.day == date.day)
         .toList();
     return res;
   }
@@ -98,14 +95,19 @@ class _EventLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 4, bottom: 3),
-      height: 13,
+      height: 14,
       width: double.infinity,
       color: event.eventBackgroundColor,
-      child: Text(
-        event.eventName,
-        style: event.eventTextStyle,
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(2, 1, 2, 1),
+        child: Expanded(
+          child: Text(
+            event.eventName,
+            style: event.eventTextStyle,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ),
     );
   }
