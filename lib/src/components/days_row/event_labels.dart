@@ -100,14 +100,12 @@ class _EventLabel extends StatelessWidget {
       color: event.eventBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(2, 1, 2, 1),
-        child: Expanded(
           child: Text(
             event.eventName,
             style: event.eventTextStyle,
             textAlign: TextAlign.center,
           
           ),
-        ),
       ),
     );
   }
