@@ -12,7 +12,7 @@ class CalendarEvent {
     this.eventID,
   });
 
-  final widget eventName;
+  final Widget eventName;
   final TextStyle eventTextStyle;
   final DateTime eventDate;
   final String? eventID;
