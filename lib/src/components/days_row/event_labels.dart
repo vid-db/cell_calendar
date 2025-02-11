@@ -55,33 +55,40 @@ class EventLabels extends HookConsumerWidget {
     final eventsOnTheDay = _eventsOnTheDay(date, events);
     final hasEnoughSpace = _hasEnoughSpace(cellHeight, eventsOnTheDay.length);
     final maxIndex = _maxIndex(cellHeight, eventsOnTheDay.length);
-    return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: eventsOnTheDay.length,
-      itemBuilder: (context, index) {
-        if (hasEnoughSpace) {
-          return _EventLabel(eventsOnTheDay[index]);
-        } else if (index < maxIndex) {
-          return _EventLabel(eventsOnTheDay[index]);
-        } else if (index == maxIndex) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _EventLabel(
-                eventsOnTheDay[index],
-              ),
-              Icon(
-                Icons.more_horiz,
-                size: 13,
-              )
-            ],
-          );
-        } else {
-          return SizedBox.shrink();
-        }
-      },
+    return SingleChildScrollView(
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: eventsOnTheDay.length,
+        itemBuilder: (context, index) {
+          return _buildEventLabel(context, eventsOnTheDay, index, hasEnoughSpace, maxIndex);
+        },
+      ),
     );
+  }
+
+  Widget _buildEventLabel(
+      BuildContext context, List<CalendarEvent> eventsOnTheDay, int index, bool hasEnoughSpace, int maxIndex) {
+    if (hasEnoughSpace) {
+      return _EventLabel(eventsOnTheDay[index]);
+    } else if (index < maxIndex) {
+      return _EventLabel(eventsOnTheDay[index]);
+    } else if (index == maxIndex) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _EventLabel(
+            eventsOnTheDay[index],
+          ),
+          // Icon(
+          //   Icons.more_horiz,
+          //   size: 13,
+          // )
+        ],
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 }
 
@@ -95,15 +102,14 @@ class _EventLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 4, bottom: 3),
-      height: 12,
+      height: 13,
       width: double.infinity,
       color: event.eventBackgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(2, 1, 2, 1),
-          child: event.eventName,
-   
-          
-       
+      child: Text(
+        event.eventName,
+        style: event.eventTextStyle,
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
